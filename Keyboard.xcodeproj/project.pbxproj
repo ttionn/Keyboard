@@ -10,7 +10,8 @@
 		803ED831213174D600BA0D58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803ED830213174D600BA0D58 /* AppDelegate.swift */; };
 		803ED838213174D600BA0D58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 803ED837213174D600BA0D58 /* Assets.xcassets */; };
 		803ED83B213174D600BA0D58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 803ED839213174D600BA0D58 /* LaunchScreen.storyboard */; };
-		803ED847213175EA00BA0D58 /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803ED846213175EA00BA0D58 /* TextInputViewController.swift */; };
+		803ED847213175EA00BA0D58 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803ED846213175EA00BA0D58 /* InputViewController.swift */; };
+		803ED84C2131795E00BA0D58 /* UIView+Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803ED84B2131795E00BA0D58 /* UIView+Constraint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,7 +20,8 @@
 		803ED837213174D600BA0D58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		803ED83A213174D600BA0D58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		803ED83C213174D600BA0D58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		803ED846213175EA00BA0D58 /* TextInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
+		803ED846213175EA00BA0D58 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
+		803ED84B2131795E00BA0D58 /* UIView+Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraint.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				803ED830213174D600BA0D58 /* AppDelegate.swift */,
-				803ED846213175EA00BA0D58 /* TextInputViewController.swift */,
+				803ED846213175EA00BA0D58 /* InputViewController.swift */,
+				803ED84B2131795E00BA0D58 /* UIView+Constraint.swift */,
 				803ED848213176EB00BA0D58 /* Supporting Files */,
 			);
 			path = Keyboard;
@@ -139,7 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				803ED847213175EA00BA0D58 /* TextInputViewController.swift in Sources */,
+				803ED84C2131795E00BA0D58 /* UIView+Constraint.swift in Sources */,
+				803ED847213175EA00BA0D58 /* InputViewController.swift in Sources */,
 				803ED831213174D600BA0D58 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

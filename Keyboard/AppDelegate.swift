@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let root = UINavigationController(rootViewController: TextInputViewController())
+        let root = UINavigationController(rootViewController: InputViewController())
         window?.rootViewController = root
         
         return true
