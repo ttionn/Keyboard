@@ -10,13 +10,27 @@ import UIKit
 
 class InputViewController: UIViewController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
         setupViews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event:UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        view.endEditing(true)
     }
     
     var inputContainerHeightConstraint: NSLayoutConstraint!
@@ -27,10 +41,13 @@ class InputViewController: UIViewController {
         return view
     }()
 
+    let inputTextPlaceholder = "Write a comment..."
     var inputTextHeightConstraint: NSLayoutConstraint!
     
     lazy var inputTextView: UITextView = {
         let textView = UITextView()
+        textView.textColor = .lightGray
+        textView.text = inputTextPlaceholder
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.layer.cornerRadius = 5
         textView.layer.borderColor = UIColor.lightGray.cgColor
@@ -44,6 +61,8 @@ class InputViewController: UIViewController {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.setTitle("Post", for: .normal)
+        button.setTitleColor(.lightGray, for: .disabled)
+        button.isEnabled = false
         button.addTarget(self, action: #selector(handlePost), for: .touchUpInside)
         return button
     }()
@@ -74,19 +93,47 @@ class InputViewController: UIViewController {
         inputTextHeightConstraint.isActive = true
     }
     
+    @objc func handleKeyboardNotification(notification: Notification) {
+        if let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+            let isShowing = notification.name == .UIKeyboardWillShow
+            inputContainerBottomConstraint.constant = isShowing ? -keyboardSize.height : 0
+        }
+        
+        UIView.animate(withDuration: 0) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     @objc func handlePost() {
-        inputTextView.text = ""
+        view.endEditing(true)
+        inputTextView.text = inputTextPlaceholder
+        inputTextView.textColor = .lightGray
         textViewDidChange(inputTextView)
+        postButton.isEnabled = false
     }
     
 }
 
 extension InputViewController: UITextViewDelegate {
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == inputTextPlaceholder {
+            textView.text = ""
+        }
+        textView.textColor = .black
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.text = inputTextPlaceholder
+            textView.textColor = .lightGray
+        }
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         let width = inputTextView.frame.width
         let height = inputTextView.sizeThatFits(CGSize(width: width, height: .infinity)).height
-        
+
         if height > inputTextView.frame.height {
             if height < 166 {
                 inputTextHeightConstraint.constant = height
@@ -99,6 +146,8 @@ extension InputViewController: UITextViewDelegate {
             inputContainerHeightConstraint.constant = height > 36 ? height + 20 : 56
             inputTextView.isScrollEnabled = false
         }
+        
+        postButton.isEnabled = textView.text != ""
     }
     
 }
